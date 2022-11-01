@@ -122,6 +122,22 @@ Based on the output, we can see that the variable 'startprice' is the most impor
 
 Now, let's fit a RandomForest model and see if this variable importance order still holds.
 
+library(randomForest)
+ebay_rf = randomForest(sold~biddable + startprice + condition + size + heel + style + color + material, data = ebay_train)
+ebay_rf
+varImpPlot(ebay_rf, main = "Variable Importance Plot")
+
+From the plot, 'startprice' comes out on the top as the most important variable in predicting the class for shoes sales, 'size' and 'style' being the second and third most important variables. This order of importance is same as what we got from the CART model.
+
+## Conclusion
+
+After this analysis, we can make following remarks regarding the shoe sales on eBay:
+1. Start price of the product matters the most when selling shoes. If it is more than 104, there is practically no chance of selling the shoes. For the best shot at selling, the price should be between 22-104.
+2. Following combinations of the variables make up most of the sold shoes:
+    a. Price= 22-104, style = Other/Missing, biddable = 1, material = any
+    b. Price= 22-104, style = Other/Missing, biddable = 0
+    c. Price= 22-104, style = !Other/Missing
+    d. Price< 22
 
 
 
