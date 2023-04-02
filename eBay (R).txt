@@ -1,0 +1,96 @@
+# Predicting Sales on eBay
+
+# Problem 0 - Use Tableau to creat visualization of eBay data. Use each factor variable against "sold"
+  to see the possible emerging patterns. For each measure you can use various statistical parameters.
+
+
+# Problem 1 - Loading the Data
+eBay = read.csv("ebayA.csv") 
+# What proportion of all shoes were sold? (Do this with Tableau and confirm with RStudio)
+
+table(eBay$sold)
+
+# Problem 2 - Most common shoe size
+# What is the most common shoe size in the dataset? (Do this with Tableau and confirm with RStudio)
+
+table(eBay$size)
+
+# Problem 3 - Splitting into a Training and Testing Set
+# What does sample.split do?
+set.seed(144)
+library(caTools)
+spl = sample.split(eBay$sold, 0.7)
+Train = subset(eBay, spl == TRUE)
+Test = subset(eBay, spl == FALSE)
+
+# Problem 4 - Training a Logistic Regression Model
+# Which of the following characteristics of a shoe are statistically significantly (p < 0.05, aka at least a * in the regression summary) associated with a lower chance of an item being sold?
+glmEbay = glm(sold~biddable + startprice + condition + heel + style + color + material, data=Train, family="binomial")
+summary(glmEbay)
+
+# Problem 5 - Obtaining Test Set Predictions
+# how many observations does the logistic regression model make a different prediction than the naive baseline model?
+glmpred = predict(glmEbay, newdata=Test, type="response")
+table(Test$sold, glmpred >= 0.5)
+table(Test$sold)
+
+# Problem 6 - Train CART Model
+# What variable is used most frequently as a split in the tree?
+library(rpart)
+library(rpart.plot)
+CARTebay = rpart(sold ~ biddable+ startprice + condition + heel + style + color + material, data = Train, cp=0.005)
+prp(CARTebay)
+
+# Problem 7 - Building a Corpus from Item Descriptions
+# How many unique word stems are in dtm?
+library(tm)
+corpusDescription = Corpus(VectorSource(eBay$description))
+corpusDescription = tm_map(corpusDescription, tolower)
+corpusDescription = tm_map(corpusDescription, PlainTextDocument)
+corpusDescription = tm_map(corpusDescription, removePunctuation)
+corpusDescription = tm_map(corpusDescription, removeWords, stopwords("english"))
+corpusDescription = tm_map(corpusDescription, stemDocument)
+dtmDescription = DocumentTermMatrix(corpusDescription)
+str(dtmDescription)
+
+# Problem 8 - Removing Sparse Terms
+# How many unique terms are in spdtm? 
+spdtm = removeSparseTerms(dtmDescription, 0.9)
+spdtm
+
+# Problem 9 - Evaluating Word Frequencies in a Corpus
+# Which word stem appears the most frequently across all descriptions? 
+spdtm = as.data.frame(as.matrix(spdtm))
+DescriptionSparse = spdtm
+colnames(DescriptionSparse) = make.names(colnames(DescriptionSparse))
+sort(colSums(DescriptionSparse))
+
+# Problem 10 - Adding Data from Original Data Frame
+# How many variables are in testText? 
+colnames(spdtm) = paste0("D", colnames(spdtm))
+spdtm$sold = eBay$sold
+spdtm$biddable = eBay$biddable
+spdtm$startprice = eBay$startprice
+spdtm$condition = eBay$condition
+spdtm$heel = eBay$heel
+spdtm$style = eBay$style
+spdtm$color = eBay$color
+spdtm$material = eBay$material
+
+spl = sample.split(spdtm$sold, 0.7)
+trainText = subset(spdtm, spl == TRUE)
+testText = subset(spdtm, spl == FALSE)
+str(testText)
+
+# Problem 11 - Training Another Logistic Regression Model 
+# How many of the word frequencies from the description text (variables beginning with the letter "D") are significant at the p=0.05 level?
+glmText = glm(sold~., data=trainText, family="binomial")
+summary(glmText)
+#What is the accuracy of the model?
+
+
+# Problem 12 - Build the CART and Random Forest model with trainText. Give your output as prp tree and varImpPlot.
+
+
+
+ 
