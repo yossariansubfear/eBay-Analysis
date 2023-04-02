@@ -1,8 +1,6 @@
 # eBay-Analysis
 ## Predicting Sales on eBay
-
-
-#### This analysis aims to predict shoe sales on eBay using relevant variables such as starting/listed price of the shoe, size, color, material, etc. We start with a basic exploratory analysis followed by fitting a logistic regression model for sales prediction. Then we also use CART and RandomForest to understand the variables of importance. R language is used for the analysis. You can access the data used [here](https://drive.google.com/file/d/1qKbVDGnl2Wuo_oKr2g13ppR4lolnmQgS/view?usp=share_link).  
+This analysis aims to predict shoe sales on eBay using relevant variables such as starting/listed price of the shoe, size, color, material, etc. We start with a basic exploratory analysis followed by fitting a logistic regression model for sales prediction. Then we also use CART and RandomForest to understand the variables of importance. R language is used for the analysis. You can access the data used [here](https://drive.google.com/file/d/1qKbVDGnl2Wuo_oKr2g13ppR4lolnmQgS/view?usp=share_link).  
 
 Please go through the Code and Analysis part to make more sense of the conclusion.
 
