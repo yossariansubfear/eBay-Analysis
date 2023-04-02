@@ -6,19 +6,14 @@
 
 Please go through the Code and Analysis part to make more sense of the conclusion.
 
-## Conclusion
-
-After this analysis, we can make following remarks regarding the shoe sales on eBay:
-1. Start price of the product matters the most when selling shoes. If it is more than 104, there is practically no chance of selling the shoes. For the best shot at selling, the price should be between 22-104.
-2. Following combinations of the variables make up most of the sold shoes:  
-
-    a. Price= 22-104, style = Other/Missing, biddable = 1, material = any. 
-    
-    b. Price= 22-104, style = Other/Missing, biddable = 0. 
-    
-    c. Price= 22-104, style = !Other/Missing 
-    
-    d. Price< 22. 
+## Conclusion:
+    After this analysis, we can make following remarks regarding the shoe sales on eBay:
+      1. Start price of the product matters the most when selling shoes. If it is more than 104, there is practically no chance of selling the shoes. For            the best shot at selling, the price should be between 22-104.
+      2. Following combinations of the variables make up most of the sold shoes:  
+          a. Price= 22-104, style = Other/Missing, biddable = 1, material = any. 
+          b. Price= 22-104, style = Other/Missing, biddable = 0. 
+          c. Price= 22-104, style = !Other/Missing 
+          d. Price< 22. 
     
 
 
