@@ -4,7 +4,7 @@ This analysis aims to predict shoe sales on eBay using relevant variables such a
 
 Here is a final plot to understand relative importance of variables involved to predict shoe sales:
 ![Variable Importance Plot]
-(https://github.com/yossariansubfear/eBay-Analysis/blob/main/Screenshot%202023-04-03%20at%2011.50.05%20AM.png)
+(Screenshot 2023-04-03 at 11.50.05 AM.png)
 
 Please go through the Code and Analysis part to make more sense of the conclusion.
 
